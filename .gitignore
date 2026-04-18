@@ -11,7 +11,21 @@ webhook_results.json
 .claude/memory.db
 .claude/state/
 .claude/sessions/
+.claude/skills/
 .mcp.json
+
+# Agent-tool runtime dirs (not actively used)
+.agents/
+.goose/
+.kiro/
+.hive-mind/
+.swarm/
+.emergent/
+.remember/
+.playwright-mcp/
+.zap/
+.clauderc
+skills-lock.json
 
 # Environment
 .env
