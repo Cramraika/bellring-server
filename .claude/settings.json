@@ -29,7 +29,6 @@
     "api-docs-generator@jmanhype-marketplace": false,
     "architecture-design@jmanhype-marketplace": false,
     "asana@claude-plugins-official": false,
-    "autofix-bot@claude-plugins-official": false,
     "b2b-project-shipper@cc-marketplace": false,
     "base-template-generator@jmanhype-marketplace": false,
     "bug-detective@cc-marketplace": false,
@@ -158,7 +157,6 @@
     "rust-analyzer-lsp@claude-plugins-official": false,
     "safety-compliance@jmanhype-marketplace": false,
     "sanctum@claude-night-market": false,
-    "sanity-plugin@claude-plugins-official": false,
     "scribe@claude-night-market": false,
     "scry@claude-night-market": false,
     "searchfit-seo@claude-plugins-official": false,
@@ -198,7 +196,6 @@
     "ux-researcher@cc-marketplace": false,
     "vercel@claude-plugins-official": false,
     "web-dev@cc-marketplace": false,
-    "workflow-optimizer@cc-marketplace": false,
-    "zoominfo@claude-plugins-official": false
+    "workflow-optimizer@cc-marketplace": false
   }
 }
