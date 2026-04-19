@@ -1,5 +1,5 @@
 {
-  "name": "sales-notification-backend",
+  "name": "bellring-server",
   "version": "1.0.0",
   "description": "Backend for Sales Notification Chrome Extension",
   "main": "server.js",
