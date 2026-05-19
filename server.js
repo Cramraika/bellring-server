@@ -1,4 +1,6 @@
 require('dotenv').config();
+// Sentry must be required first so its handlers wrap subsequent middleware.
+const Sentry = require('./sentry');
 const express = require('express');
 const http = require('http');
 const WebSocket = require('ws');
@@ -11,6 +13,10 @@ const url = require('url');
 
 const app = express();
 app.set('trust proxy', 1);
+// Sentry request handler must be the first middleware on the app.
+if (Sentry.Handlers && Sentry.Handlers.requestHandler) {
+  app.use(Sentry.Handlers.requestHandler());
+}
 const server = http.createServer(app);
 
 // Enhanced Memory Management Classes (keep same as before)
@@ -706,6 +712,11 @@ app.get('/health', (req, res) => {
     }
   });
 });
+
+// Sentry error handler must come before any other error middleware and after all routes.
+if (Sentry.Handlers && Sentry.Handlers.errorHandler) {
+  app.use(Sentry.Handlers.errorHandler());
+}
 
 // Error handling middleware
 app.use((err, req, res, next) => {
