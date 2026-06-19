@@ -50,3 +50,6 @@ npm-debug.log*
 .gitnexus/
 .gitnexusignore
 .serena/
+graphify-out/
+lychee.toml
+sgconfig.yml
