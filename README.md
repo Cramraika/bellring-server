@@ -213,3 +213,7 @@ The **Sales Notification Backend** is a *Node.js/Express* application that power
 
 - OTPs are stored in-memory (`otps` Map) and lost on server restart. Consider using a database (e.g., **MongoDB**) for persistence in production.
 - Rate limiting is IP-based, which may affect users behind shared IPs (e.g., corporate networks).
+
+## License
+
+Proprietary — © 2026 Vagary Labs. All rights reserved. See [LICENSE](LICENSE).
