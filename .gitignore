@@ -53,3 +53,4 @@ npm-debug.log*
 graphify-out/
 lychee.toml
 # sgconfig.yml is tracked (loads .ast-grep/rules/ fleet-debt rules; needed for reproducible scans)
+.ast-grep/last-scan.log
