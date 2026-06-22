@@ -1,4 +1,4 @@
-# Sales Notification Backend - Environment Reference
+# Bellring Server - Environment Reference
 
 ## Local Development
 
@@ -13,8 +13,8 @@
 
 ```bash
 # Clone
-git clone https://github.com/SMPL562/sales-notification-backend.git
-cd sales-notification-backend
+git clone https://github.com/Cramraika/bellring-server.git
+cd bellring-server
 
 # Install dependencies
 npm install
