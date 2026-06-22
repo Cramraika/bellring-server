@@ -45,11 +45,11 @@ npm-debug.log*
 .vscode/
 
 # Tooling output dirs (per memory rule §2.3)
-.ast-grep/
+.ast-grep/last-scan.json
 .cgcignore
 .gitnexus/
 .gitnexusignore
 .serena/
 graphify-out/
 lychee.toml
-sgconfig.yml
+# sgconfig.yml is tracked (loads .ast-grep/rules/ fleet-debt rules; needed for reproducible scans)

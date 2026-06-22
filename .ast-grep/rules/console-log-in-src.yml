@@ -1,0 +1,9 @@
+id: console-log-in-src
+language: javascript
+rule:
+  any:
+    - pattern: console.log($$$A)
+    - pattern: console.debug($$$A)
+note: |
+  console.log/console.debug in source — use a logger with severity levels so
+  production noise can be controlled. Fleet debt rule.
