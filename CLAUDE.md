@@ -37,12 +37,12 @@ Per matrix row `bellring-server` — **bare-fork stack-up cluster (Cluster 1)**:
 
 ```
 Mail | DNS | RP | Orch  | Obs | Backup | Sup | Sec | Tun | Err | Wflw | Spec
- NA  | T   | NA | NA(R) | NA  | NA     | T   | U   | NA  | NA  | NA   | NA
+ NA  | T   | NA | NA(R) | NA  | NA     | T   | U   | NA  | U   | NA   | NA
 ```
 
-- USED: Sec (Render env vars; pre-startup validation; `EXTENSION_ID` + `WEBHOOK_TOKEN` + `JWT_SECRET` + `SENDGRID_API_KEY`).
+- USED: Sec (Render env vars; pre-startup validation; `EXTENSION_ID` + `WEBHOOK_TOKEN` + `JWT_SECRET` + `SENDGRID_API_KEY`). Err (`sentry.js` wires `@sentry/node` request/error handlers in `server.js`; DSN via `SENTRY_DSN`, no-ops if unset).
 - TRIGGER-TO-WIRE: DNS (once `bellring.<tld>` registered), Sup (Cosign post-PR-#50 — T or N-A given Render runtime; if Bellring multi-tenant pivot moves to Coolify, becomes T proper).
-- NA: Mail (SendGrid via API), RP, Obs, Backup, Tun, Err, Wflw, Spec.
+- NA: Mail (SendGrid via API), RP, Obs, Backup, Tun, Wflw, Spec.
 - NA(R) = on Render off-fleet today; pending Bellring multi-tenant pivot decision (stay on Render OR move to Coolify on Vagary).
 
 ## What's Wired (Render free tier)
@@ -51,6 +51,7 @@ Mail | DNS | RP | Orch  | Obs | Backup | Sup | Sec | Tun | Err | Wflw | Spec
 - **CI:** GitHub Actions — `node --check` + `npm audit --audit-level=critical` + .env.example var listing. **GREEN.**
 - **CN reference customer:** ~300 BDEs; LeadSquared webhook integration.
 - **SendGrid:** OTP email; sender `noreply@codingninjas.com` (verified).
+- **Error tracking:** `sentry.js` (`@sentry/node`, Glitchtip-compatible) wired as first/last middleware in `server.js`; DSN via `SENTRY_DSN` (no-ops if unset).
 - **Health endpoints:** `/ping` (keepalive), `/stats` (admin-bearer-gated).
 
 ## Stack
