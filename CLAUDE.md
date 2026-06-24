@@ -27,6 +27,9 @@ hold without a Read.
 
 <!-- END PLAYBOOKS BLOCK -->
 
+## License classification: commercial-bound
+Bellring whitelabel SaaS (paid tiers $19/$79/$299). Per `commercial-bound.md`: GitNexus (PolyForm-NC) graph output MUST NOT be committed/shipped; use CGC (`codegraphcontext`) for any shippable graph artefact. This in-repo line is the routing signal §50.2 wants so agents pick cgc-over-gitnexus without re-deriving the license posture.
+
 ## Identity & Role
 
 `bellring-server` is the **backend half of Bellring** — whitelabel SaaS for sales-team celebration notifications (sales-floor bell-ringing ritual; closing a deal triggers unmissable team-wide popups). Receives CRM webhooks (LeadSquared, HubSpot, Salesforce, generic), issues OTP auth, fans real-time celebration events to browser extensions over WebSocket. Tier model: Free / $19 Team / $79 Growth / $299+ Enterprise. Repo renamed from `sales-notification-backend` 2026-04-19; previously codenamed "Salvo". Vagary Labs brand: **Bellring** (product brand).
