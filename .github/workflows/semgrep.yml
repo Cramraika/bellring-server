@@ -1,0 +1,90 @@
+# =============================================
+# Semgrep CI — SAST coverage
+# =============================================
+# Wired 2026-05-19 to replace CodeQL after the auto-fire disable across
+# 8 Cramraika repos. Semgrep was previously only running as a fleet
+# Bash CLI hook on the operator's Mac (not as per-repo CI). This adds
+# real per-repo SAST coverage.
+#
+# Runner-label discipline: matches the cramraika-actions-budget
+# migration pattern — `${{ vars.RUNNER_TYPE || 'self-hosted' }}`.
+# Cramraika billing blocks GitHub-hosted (ubuntu-latest) runners;
+# do NOT change to ubuntu-latest.
+#
+# Note: no `container:` directive — fleet self-hosted runners are
+# macOS-ARM64 and don't support container jobs. Semgrep is installed
+# via pip into a user-writable cache, mirroring the Trivy install
+# pattern in ci.yml.
+#
+# 2026-05-19 framework fix: switched from `semgrep ci` to
+# `semgrep scan` because the runner host (operator's Mac) has a
+# cached login token at `~/.semgrep/settings.yml`. `semgrep ci`
+# refuses `--config` flags while logged in (uploads to semgrep-app
+# dashboard rules instead). `semgrep scan` honors --config directly
+# and bypasses the login mutex.
+# =============================================
+
+name: Semgrep
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+  security-events: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  semgrep:
+    name: semgrep/ci
+    runs-on: ${{ vars.RUNNER_TYPE || 'self-hosted' }}
+    if: (github.actor != 'dependabot[bot]')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Semgrep
+        run: |
+          # User-writable install (no sudo on macOS self-hosted runners).
+          # Match Trivy install pattern from ci.yml.
+          SEMGREP_DIR="${RUNNER_TOOL_CACHE:-$HOME/.cache}/semgrep"
+          mkdir -p "${SEMGREP_DIR}"
+          python3 -m pip install --user --upgrade semgrep
+          # Surface install location for downstream steps
+          PIP_USER_BIN="$(python3 -c 'import site; print(site.USER_BASE)')/bin"
+          echo "${PIP_USER_BIN}" >> "${GITHUB_PATH}"
+          "${PIP_USER_BIN}/semgrep" --version
+
+      - name: Semgrep scan (default + security-audit + secrets)
+        env:
+          # Force-unset to avoid `semgrep ci` logged-in mutex if a token
+          # is cached in `~/.semgrep/settings.yml` on the runner host.
+          # We use `semgrep scan` (not `semgrep ci`) which honors --config
+          # directly; this env is belt-and-braces.
+          SEMGREP_APP_TOKEN: ''
+        run: |
+          semgrep scan \
+            --config=p/default \
+            --config=p/security-audit \
+            --config=p/secrets \
+            --sarif --sarif-output=results.sarif \
+            --metrics=off \
+            --error \
+            || echo "Semgrep exited non-zero (findings present) — surfacing as artifact"
+
+      - name: Upload SARIF artifact
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-sarif
+          path: results.sarif
+          if-no-files-found: warn
