@@ -49,7 +49,7 @@ jobs:
     if: (github.actor != 'dependabot[bot]')
     steps:
       - name: Checkout
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
       - name: Install Semgrep
         run: |
@@ -83,7 +83,7 @@ jobs:
       - name: Upload SARIF artifact
         if: always()
         continue-on-error: true
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
           name: semgrep-sarif
           path: results.sarif
