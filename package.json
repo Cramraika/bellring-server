@@ -9,17 +9,17 @@
   },
   "dependencies": {
     "@sendgrid/mail": "^8.1.6",
-    "@sentry/node": "^7.119.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
+    "@sentry/node": "^7.119.2",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
     "express": "^5.2.1",
-    "express-rate-limit": "^6.7.0",
-    "jsonwebtoken": "^9.0.0",
-    "uuid": "^11.0.0",
-    "ws": "^8.13.0"
+    "express-rate-limit": "^6.7.2",
+    "jsonwebtoken": "^9.0.3",
+    "uuid": "^11.0.5",
+    "ws": "^8.21.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.3",
+    "@biomejs/biome": "^2.5.13",
     "knip": "^6.25.0",
     "nodemon": "^3.1.14"
   },
