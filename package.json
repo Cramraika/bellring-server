@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.13",
-    "knip": "^6.25.0",
+    "knip": "^6.32.0",
     "nodemon": "^3.1.14"
   },
   "engines": {
